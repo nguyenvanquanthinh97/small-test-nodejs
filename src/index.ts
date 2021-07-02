@@ -46,7 +46,7 @@ const isTwoObjectsEqual = async (obj1: JSONObject, obj2: JSONObject): Promise<bo
   const obj1Keys = Object.keys(obj1);
   const obj2Keys = Object.keys(obj2);
 
-  if (!(await isTwoArraysEqual(obj1Keys, obj2Keys))) {
+  if (obj1Keys.length !== obj2Keys.length) {
     result = false;
     return result;
   }
