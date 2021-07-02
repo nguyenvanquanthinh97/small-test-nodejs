@@ -11,7 +11,7 @@ export type JSONParseable = JSONObject | JSONArray | JSONPrimitive | Date;
  * @param o
  * @param u
  */
-export function deepEquals(o: JSONParseable, u: JSONParseable): boolean {
+export async function asyncDeepEquals(o: JSONParseable, u: JSONParseable): Promise<boolean> {
   return o === u;
 }
 
