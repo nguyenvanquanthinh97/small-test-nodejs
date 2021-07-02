@@ -27,18 +27,9 @@ const reviver = (key: string, value: unknown) => {
 };
 
 export function deepCopy<T extends JSONParseable>(o: T): T {
-  let firstCalled = true;
   const dateFormatter = function (this: Record<string, JSONParseable>, name: string, value: unknown) {
     const property = this[name];
 
-    if (firstCalled) {
-      // it is first called with the entire object and name = ''
-      // console.log(this, name, this[name], this[name] instanceof Date);
-      if (property instanceof Date) {
-        return `Date(${property.toISOString()})`;
-      }
-      firstCalled = false;
-    }
     if (property instanceof Date) {
       return `Date(${property.toISOString()})`;
     }
