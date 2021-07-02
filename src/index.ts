@@ -1,4 +1,17 @@
-export function deepEquals<T>(o: T, u: unknown): u is T {
+// see https://github.com/microsoft/TypeScript/issues/1897#issuecomment-331765301
+export type JSONPrimitive = string | number | boolean | null;
+export type JSONValue = JSONPrimitive | JSONObject | JSONArray;
+export type JSONObject = { [member: string]: JSONValue };
+export interface JSONArray extends Array<JSONValue> {}
+
+export type JSONParseable = JSONObject | JSONArray | JSONPrimitive | Date;
+
+/**
+ *
+ * @param o
+ * @param u
+ */
+export function deepEquals<T extends JSONParseable>(o: T, u: unknown): u is T {
   return o === u;
 }
 
@@ -13,7 +26,7 @@ const reviver = (key: string, value: unknown) => {
   return value;
 };
 
-export function deepCopy<T>(o: T): T {
+export function deepCopy<T extends JSONParseable>(o: T): T {
   let firstCalled = true;
   const dateFormatter = function (this: any, name: string, value: unknown) {
     if (firstCalled) {
