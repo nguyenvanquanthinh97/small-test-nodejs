@@ -41,12 +41,12 @@ const isTwoDateEqual = (date1: Date, date2: Date): boolean => {
   return date1.getTime() === date2.getTime();
 };
 
-const isTwoObjectsEqual = (obj1: JSONObject, obj2: JSONObject): boolean => {
+const isTwoObjectsEqual = async (obj1: JSONObject, obj2: JSONObject): Promise<boolean> => {
   let result = true;
   const obj1Keys = Object.keys(obj1);
   const obj2Keys = Object.keys(obj2);
 
-  if (!isTwoArraysEqual(obj1Keys, obj2Keys)) {
+  if (!(await isTwoArraysEqual(obj1Keys, obj2Keys))) {
     result = false;
     return result;
   }
@@ -55,24 +55,14 @@ const isTwoObjectsEqual = (obj1: JSONObject, obj2: JSONObject): boolean => {
     const key = obj1Keys[i];
     const value1 = obj1[key];
     const value2 = obj2[key];
-    if (typeof value1 !== typeof value2) {
-      result = false;
-    } else if (isJSONArray(value1) && isJSONArray(value2)) {
-      result = isTwoArraysEqual(value1, value2);
-    } else if (isJSONObject(value1) && isJSONObject(value2)) {
-      result = isTwoObjectsEqual(value1, value2);
-    } else if (isDate(value1) && isDate(value2)) {
-      result = isTwoDateEqual(value1, value2);
-    } else {
-      result = value1 === value2;
-    }
+    result = await asyncDeepEquals(value1, value2);
 
     if (!result) return result;
   }
   return result;
 };
 
-const isTwoArraysEqual = (arr1: JSONArray, arr2: JSONArray): boolean => {
+const isTwoArraysEqual = async (arr1: JSONArray, arr2: JSONArray): Promise<boolean> => {
   let result = true;
   if (arr1.length !== arr2.length) {
     result = false;
@@ -81,17 +71,7 @@ const isTwoArraysEqual = (arr1: JSONArray, arr2: JSONArray): boolean => {
   for (let i = 0; i < arr1.length; i++) {
     const value1 = arr1[i];
     const value2 = arr2[i];
-    if (typeof value1 !== typeof value2) {
-      result = false;
-    } else if (isJSONObject(value1) && isJSONObject(value2)) {
-      result = isTwoObjectsEqual(value1, value2);
-    } else if (isJSONArray(value1) && isJSONArray(value2)) {
-      result = isTwoArraysEqual(value1, value2);
-    } else if (isDate(value1) && isDate(value2)) {
-      result = isTwoDateEqual(value1, value2);
-    } else {
-      result = value1 === value2;
-    }
+    result = await asyncDeepEquals(value1, value2);
 
     if (!result) return result;
   }
