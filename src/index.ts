@@ -11,7 +11,7 @@ export type JSONParseable = JSONObject | JSONArray | JSONPrimitive | Date;
  * @param o
  * @param u
  */
-export function deepEquals<T extends JSONParseable>(o: T, u: unknown): u is T {
+export function deepEquals(o: JSONParseable, u: JSONParseable): boolean {
   return o === u;
 }
 
