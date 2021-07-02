@@ -1,0 +1,47 @@
+{
+    "name": "typescript-eslint-prettier-jest-example",
+    "version": "0.1.0",
+    "description": "Example of Combining eslint prettier jest.",
+    "main": "./build/bin/cli.js",
+    "types": "./build/src/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/alexrecuenco/typescript-eslint-prettier-jest-example.git"
+    },
+    "bin": "./build/bin/cli.js",
+    "scripts": {
+        "start": "npm run build && node .",
+        "build": "npm run build:debug",
+        "build:debug": "tsc",
+        "build:prod": "tsc --build tsconfig.prod.json",
+        "watch": "tsc-watch --onSuccess 'node .'",
+        "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+        "lint:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx",
+        "test": "jest"
+    },
+    "license": "SEE LICENSE IN LICENSE",
+    "keywords": [
+        "jest",
+        "test",
+        "datetime",
+        "internationalization"
+    ],
+    "devDependencies": {
+        "@types/jest": "^26.0.23",
+        "@types/node": "^15.6.1",
+        "@typescript-eslint/eslint-plugin": "^4.26.0",
+        "@typescript-eslint/parser": "^4.26.0",
+        "eslint": "^7.27.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.23.4",
+        "eslint-plugin-jest": "^24.3.6",
+        "eslint-plugin-prettier": "^3.4.0",
+        "fast-check": "^2.15.0",
+        "jest": "^27.0.3",
+        "prettier": "^2.3.0",
+        "supports-color": "^9.0.1",
+        "ts-jest": "^27.0.2",
+        "tsc-watch": "^4.4.0",
+        "typescript": "^4.3.2"
+    }
+}
