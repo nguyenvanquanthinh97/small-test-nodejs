@@ -1,6 +1,5 @@
-import fc, { Arbitrary, string } from 'fast-check';
-import { deepEquals } from '../src';
-import { deepCopy, JSONParseable } from '../src/index';
+import fc, { Arbitrary } from 'fast-check';
+import { deepEquals, deepCopy } from '../src';
 
 const EachSimpleType = [
   ['null', fc.constant(null)],
