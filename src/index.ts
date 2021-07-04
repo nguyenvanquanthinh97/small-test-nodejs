@@ -12,7 +12,8 @@ export type JSONParseable = JSONObject | JSONArray | JSONPrimitive | Date;
  * @param u
  */
 export async function asyncDeepEquals(o: JSONParseable, u: JSONParseable): Promise<boolean> {
-  return o === u;
+  if (typeof o !== typeof u) return false;
+  return JSON.stringify(o) === JSON.stringify(u);
 }
 
 const reviver = (key: string, value: unknown) => {
